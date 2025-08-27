@@ -1,10 +1,14 @@
 import './Navbar.css';
-import { Search, Heart } from 'akar-icons'
+import { Search, Heart, Cart } from 'akar-icons'
+import Logo from '../../assets/Logo.svg'
 
 export default function Navbar(){
     return (
-        <nav>
-            <div>
+        <nav className='navbar'>
+            <div className='container'>
+                <a href="#">
+                    <img src={Logo} alt="Logo do petshop" className='logo'/>
+                </a>
                 <ul className='nav-links'>
                     <li>Início</li>
                     <li>Comprar</li>
@@ -17,8 +21,13 @@ export default function Navbar(){
                         <input type="text" placeholder='Pesquise aqui...'/>
                         <button className='search-icon'><Search className='icon' size={20} /></button>
                     </div>
-                    <button>
-                        <Heart strokeWidth={2} size={36} />
+                    <button className='icon-btn'>
+                        <Heart />
+                        <span className='badge'>0</span>
+                    </button>
+                    <button className='icon-btn'>
+                        <Cart />
+                        <span className='badge'>0</span>
                     </button>
                 </div>
             </div>
