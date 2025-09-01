@@ -2,12 +2,14 @@ import './App.css'
 import Navbar from './components/navbar/Navbar'
 import Carousel from './components/carousel/Carousel'
 import CategoryCard from './components/categoryCard/CategoryCard'
+import CategoryCarousel from './components/categoryCarousel/categoryCarousel'
 
 function App() {
 
   return (
     <>
-      <CategoryCard title={'Brinquedos'} productCount={84} image={'https://tse1.mm.bing.net/th/id/OIP.rzOKxfnIkYjpgcCxfVcM5QAAAA?rs=1&pid=ImgDetMain&o=7&rm=3'} />
+      <Navbar />
+      <CategoryCarousel />
     </>
   )
 }
