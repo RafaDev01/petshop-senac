@@ -2,6 +2,27 @@
     box-sizing: border-box;
 }
 
+.navbar {
+    position: fixed;
+    top: 0;
+    margin: 0 auto;
+    z-index: 9999;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 40px;
+    padding: 20px 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+}
+
 .nav-links {
     display: flex;
     list-style: none;
@@ -25,7 +46,7 @@
 
 .search-bar input {
     border: none;
-    background-color: #f7f7f7;
+    background-color: #ddd;
     border-radius: 20px;
     padding: 8px 15px;
     width: 200px;
@@ -53,7 +74,7 @@
 }
 
 .icon-btn {
-    background:none;
+    background: none;
     border: none;
     cursor: pointer;
     position: relative;
@@ -72,19 +93,6 @@
     right: -5px;
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    justify-content: space-between;
-}
-
-.navbar {
-    background-color: white;
-    border-radius: 40px;
-    padding: 20px 50px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    max-width: 1200px;
-    margin: 0 auto;
+.logo {
+    width: 7rem;
 }
