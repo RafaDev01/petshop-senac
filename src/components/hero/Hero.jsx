@@ -4,7 +4,7 @@ import CTAButton from '../ctaBtn/CTABtn'
 
 const Hero = () => {
   const heroList = {
-    name: 'Pet shop name',
+    name: 'Pet Shop do Rafael',
     title: 'bem vindo',
     image: HeroImg,
     titleImg: 'img title',
