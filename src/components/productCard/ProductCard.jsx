@@ -1,5 +1,5 @@
 import './ProductCard.css'
-import { Heart } from 'akar-icons';
+import { Heart, } from 'akar-icons';
 
 const ProductCard = ({ product }) => {
     return(

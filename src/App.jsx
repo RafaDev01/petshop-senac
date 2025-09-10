@@ -1,24 +1,15 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Navbar from './components/navbar/Navbar'
-import CategoryCarousel from './components/categoryCarousel/categoryCarousel'
-import AnimalCarousel from './components/animalCarousel/AnimalCarousel'
-import Hero from './components/hero/Hero'
-import Footer from './components/footer/Footer'
-import FeaturedProducts from './components/featuredProducts/FeaturedProducts'
-import ShopSidebar from './components/shopSidebar/ShopSidebar'
-import ProductGrid from './components/productGrid/ProductGrid'
+import Home from './pages/Home'
+import Shop from './pages/Shop'
 
 function App() {
-
   return (
     <>
-      <Navbar />
-      <Hero />
-      <CategoryCarousel />
-      <FeaturedProducts />
-      <AnimalCarousel />
-      <ProductGrid />
-      <Footer/>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/shop' element={<Shop />} />
+      </Routes>
     </>
   )
 }

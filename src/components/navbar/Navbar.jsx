@@ -1,6 +1,7 @@
 import './Navbar.css';
 import { Search, Heart, Cart } from 'akar-icons'
 import Logo from '../../assets/Logo.svg'
+import  { Link } from 'react-router-dom'
 
 export default function Navbar(){
     return (
@@ -10,9 +11,9 @@ export default function Navbar(){
                     <img src={Logo} alt="Logo do petshop" className='logo'/>
                 </a>
                 <ul className='nav-links'>
-                    <li>Início</li>
-                    <li>Comprar</li>
-                    <li>Sobre nós</li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/shop">Comprar</Link></li>
+                    <li><Link to="/hbuhb">Comprar</Link></li>
                     <li>Contato</li>
                 </ul>
 
