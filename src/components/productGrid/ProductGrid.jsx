@@ -24,8 +24,8 @@ const ProductGrid = () => {
     const produtosPorPagina = 6;
     const maximoDeAnimais = 50;
 
-    const API_KEY = "fNTK51JOa6lJfT9PmVAILwhIbwJOs1tQ5Aq6T67hVGdfbpLqmq";
-    const API_SECRET = "lnmIzDozp8MEi7lciTbPQth1Hx1YdezTUXnzSaNv";
+    const API_KEY = "";
+    const API_SECRET = "";
 
     const obterToken = async() => {
         const response = await axios.post(
