@@ -1,125 +1,120 @@
-import ShopSidebar from '../shopSidebar/ShopSidebar';
-import ProductCard from '../productCard/ProductCard';
-import './ProductGrid.css';
-import { useEffect, useState } from 'react';
-import Pagination from '../pagination/Pagination';
-import axios from 'axios'
+import { useState } from "react";
+import "./ProductGrid.css";
+import ShopSidebar from "../shopSidebar/ShopSidebar";
+import ShopCard from "../shopCard/ShopCard";
+import Pagination from "../pagination/Pagination";
 
-const listaDeCategorias = [
-  { nome: "Brinquedos", qtd: 32 }, // índice 0
-  { nome: "Roupas", qtd: 30 }, // índice 1
-  { nome: "Comidas", qtd: 100 },
+// --- DADOS FICTÍCIOS ---
+const allProducts = [
+  { id: 1, name: "Pet Carrier", price: 22.0, category: "Litter" },
+  { id: 2, name: "Cat Bed", price: 15.5, category: "Toys" },
+  { id: 3, name: "Cat Bowl", price: 8.0, category: "Food" },
+  {
+    id: 4,
+    name: "Premium Cat Food",
+    price: 45.0,
+    category: "Food",
+    brand: "Royal Canin",
+  },
+  { id: 5, name: "Dog Bed", price: 30.0, category: "Toys", brand: "Whiskas" },
+  { id: 6, name: "Dog Leash", price: 12.0, category: "Grooming" },
+  {
+    id: 7,
+    name: "Medium Dog Bed",
+    price: 25.0,
+    category: "Toys",
+    brand: "Royal Canin",
+  },
+  {
+    id: 8,
+    name: "Medium Dog Bed",
+    price: 25.0,
+    category: "Toys",
+    brand: "Whiskas",
+  },
+  { id: 9, name: "Cat Litter", price: 18.0, category: "Litter" },
+  { id: 10, name: "Grooming Brush", price: 9.5, category: "Grooming" },
+  { id: 11, name: "Squeaky Toy", price: 5.0, category: "Toys" },
+  {
+    id: 12,
+    name: "Dry Dog Food",
+    price: 50.0,
+    category: "Food",
+    brand: "Royal Canin",
+  },
 ];
- 
-const listaDeMarcas = [
-  { nome: "Royal Canin", qtd: 30 },
-  { nome: "K9 Spirit", qtd: 20 },
-  { nome: "Premier", qtd: 10 },
+
+const categories = [
+  { name: "Litter", count: 12 },
+  { name: "Grooming", count: 21 },
+  { name: "Toys", count: 8 },
+  { name: "Food", count: 15 },
+  { name: "Health", count: 10 },
+  { name: "Clothing", count: 7 },
 ];
+
+const brands = [
+  { name: "Royal Canin", count: 7 },
+  { name: "Whiskas", count: 7 },
+  { name: "Purina", count: 7 },
+];
+
+const popularProducts = allProducts.slice(0, 3);
 
 const ProductGrid = () => {
-    const [paginaAtual, setPaginaAtual] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [pets, setPets] = useState([])
-    const produtosPorPagina = 6;
-    const maximoDeAnimais = 50;
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 6;
 
-    const API_KEY = "";
-    const API_SECRET = "";
+  // Lógica de paginação
+  const totalPages = Math.ceil(allProducts.length / productsPerPage);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = allProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
-    const obterToken = async() => {
-        const response = await axios.post(
-            "https://api.petfinder.com/v2/oauth2/token",
-            `grant_type=client_credentials&client_id=${API_KEY}&client_secret=${API_SECRET}`,
-            {
-                headers: { "Content-Type": "aplication/x-www-form-urlencoded" }
-            }
-        );
-        return response.data.access_token;
-    }
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-    const buscarPets = async (token, pagina, limite) => {
-        const response = await axios.get(`/pf-api-/animals?page=${pagina}&limit=${limite}&type=Dog`,
-            {
-                headers: { Authorization: `Berear ${token}` }
-            }
-        )
-        return response.data;
-    }
-
-    useEffect(()=> {
-        const fetchTokenEPets = async () => {
-            if(loading);
-            setLoading(true);
-
-            try {
-                const token = await obterToken();
-                const data = await buscarPets(token, paginaAtual, produtosPorPagina);
-
-                const petsComImagem = data.animals.filter(
-                    (pet) => pet.primary_photo_cropped || (pet.photos.length > 0)
-                )
-
-                const petsFormatados = petsComImagem.map((cachorro)=> ({
-                    id: cachorro.id,
-                    name: cachorro.name,
-                    price: cachorro.breeds.primary,
-                    image: cachorro.primary_photo_cropped?.medium || (cachorro.photo && photos[0]?.medium)
-                }));
-
-                setPets(petsFormatados)
-
-                const totalConsiderado = Math.min(
-                    maximoDeAnimais,
-                    data.pagination.total_count
-                )
-            } catch {
-
-            }
-        }
-    })
-
-    // ceil serve para arrendodar pra cima
-    const totalDePaginas = Math.ceil(todosProdutos.length / produtosPorPagina);
-    const indiceUltimoProduto = paginaAtual * produtosPorPagina;
-    const indicePrimeiroProduto = indiceUltimoProduto - produtosPorPagina;
-    const produtosAtuais = todosProdutos.slice(indicePrimeiroProduto, indiceUltimoProduto);
-
-    const mudarPaginaAtual = (numeroDaPagina) => {
-        setPaginaAtual(numeroDaPagina)
-    }
-
-    return(
-        <div className='product-grid-container'>
-            <ShopSidebar listaDeCategorias={listaDeCategorias} listaDeMarcas={listaDeMarcas}/>
-            <main className='product-list-section'>
-                <header className='product-list-header'>
-                    <p>Mostrando {indicePrimeiroProduto + 1} até {Math.min(indicePrimeiroProduto, todosProdutos.length)} de {todosProdutos.length} resultados</p>
-
-                    <div className='sort-by'>
-                        <label htmlFor="sort">Ordenar por: </label>
-                        <select name="sort" id="sort">
-                            <option value="default">Mais recente</option>
-                            <option value="price-asc">Preço: menor ao maior</option>
-                            <option value="price-desc">Preço: maior ao menor</option>
-                            <option value="name-asc">Name: A-Z</option>
-                        </select>
-                    </div>
-                </header>
-
-                <div className='products-grid'>
-                    {produtosAtuais.map(produto => (
-                        <ProductCard key={produto.id} product={produto}/>
-                    ))}
-                </div>
-
-                <Pagination 
-                totalDePaginas={totalDePaginas} 
-                paginaAtual={paginaAtual} 
-                mudarPaginaAtual={mudarPaginaAtual}/>
-            </main>
+  return (
+    <div className="product-grid-container">
+      <ShopSidebar
+        categories={categories}
+        brands={brands}
+        popularProducts={popularProducts}
+      />
+      <main className="product-list-section">
+        <header className="product-list-header">
+          <p>
+            Showing {indexOfFirstProduct + 1}–
+            {Math.min(indexOfLastProduct, allProducts.length)} of{" "}
+            {allProducts.length} results
+          </p>
+          <div className="sort-by">
+            <label htmlFor="sort">Ordenar por: </label>
+            <select name="sort" id="sort">
+              <option value="default">Mais Recente</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="name-asc">Name: A-Z</option>
+            </select>
+          </div>
+        </header>
+        <div className="products-grid">
+          {currentProducts.map((product) => (
+            <ShopCard key={product.id} product={product} />
+          ))}
         </div>
-    );
-}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </main>
+    </div>
+  );
+};
 
 export default ProductGrid;

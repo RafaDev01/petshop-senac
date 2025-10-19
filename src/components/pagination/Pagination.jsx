@@ -1,33 +1,28 @@
-import './Pagination.css';
+import "./Pagination.css";
 
-const Pagination = ( { totalDePaginas, paginaAtual, mudarPaginaAtual } ) => {
-    return(
-        <div className='pagination'>
-            <button className='page-button next'
-            onClick={() => paginaAtual < totalDePaginas && mudarPaginaAtual(paginaAtual - 1)}
-            disabled={paginaAtual === 1}
-            >
-                Próximo &gt;
-            </button>
-            { Array.from( { length: totalDePaginas }, (_, i) => i + 1).map(numeroDaPagina => (
-                <button 
-                key={numeroDaPagina}
-                className={`page-button ${paginaAtual === numeroDaPagina ? 'active' : ''}`}
-                onClick={() => mudarPaginaAtual(numeroDaPagina)}
-                >
-                    {numeroDaPagina}
-                </button>
-            ))}
-
-            <button className='page-button next'
-            onClick={() => paginaAtual < totalDePaginas && mudarPaginaAtual(paginaAtual + 1)}
-            disabled={paginaAtual === totalDePaginas}
-            >
-                Próximo &gt;
-            </button>
-        </div>
-    );
-
-}
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+  return (
+    <div className="pagination">
+      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <button
+          key={page}
+          className={`page-button ${currentPage === page ? "active" : ""}`}
+          onClick={() => onPageChange(page)}
+        >
+          {page}
+        </button>
+      ))}
+      <button
+        className="page-button next"
+        onClick={() =>
+          currentPage < totalPages && onPageChange(currentPage + 1)
+        }
+        disabled={currentPage === totalPages}
+      >
+        Next &gt;
+      </button>
+    </div>
+  );
+};
 
 export default Pagination;

@@ -1,37 +1,42 @@
-import './Navbar.css';
-import { Search, Heart, Cart } from 'akar-icons'
-import Logo from '../../assets/Logo.svg'
-import  { Link } from 'react-router-dom'
+import "./Navbar.css";
+import { Search, Heart, Cart } from "akar-icons";
+import Logo from "../../assets/Logo.svg";
+import { Link } from "react-router-dom";
 
-export default function Navbar(){
-    return (
-        <nav className='navbar'>
-            <div className='container'>
-                <a href="#">
-                    <img src={Logo} alt="Logo do petshop" className='logo'/>
-                </a>
-                <ul className='nav-links'>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/shop">Comprar</Link></li>
-                    <li><Link to="/hbuhb">Comprar</Link></li>
-                    <li>Contato</li>
-                </ul>
+export default function Navbar() {
+  return (
+    <nav className="navbar">
+      <div className="container">
+        <a href="#">
+          <img src={Logo} alt="Logo do petshop" className="logo" />
+        </a>
+        <ul className="nav-links">
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/shop">Comprar</Link>
+          </li>
+          <li>Contato</li>
+        </ul>
 
-                <div className='nav-actions'>
-                    <div className='search-bar'>
-                        <input type="text" placeholder='Pesquise aqui...'/>
-                        <button className='search-icon'><Search className='icon' size={20} /></button>
-                    </div>
-                    <button className='icon-btn'>
-                        <Heart />
-                        <span className='badge'>0</span>
-                    </button>
-                    <button className='icon-btn'>
-                        <Cart />
-                        <span className='badge'>0</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
-    )
+        <div className="nav-actions">
+          <div className="search-bar">
+            <input type="text" placeholder="Pesquise aqui..." />
+            <button className="search-icon">
+              <Search className="icon" size={20} />
+            </button>
+          </div>
+          <button className="icon-btn">
+            <Heart />
+            <span className="badge">0</span>
+          </button>
+          <button className="icon-btn">
+            <Cart />
+            <span className="badge">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
 }
